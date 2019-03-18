@@ -36,21 +36,6 @@ class UserController extends Controller {
       ctx.body = resMsg
       return
     }
-    // 验证码正确则继续登录操作
-    // const userData = await ctx.service.user.login({ username, password })
-    // if (!userData) {
-    //   resMsg.code = 2
-    //   resMsg.msg = '用户名或密码错误'
-    //   ctx.body = resMsg
-    //   return
-    // }
-    // resMsg.token = userData.token
-    // resMsg.data = {
-    //   username: userData.user.userName,
-    //   uid: userData.user._id
-    // }
-    // ctx.body = resMsg
-
     const user = userDB.find(e => e.username === body.username && e.password === body.password)
     ctx.body = {
       code: 0,

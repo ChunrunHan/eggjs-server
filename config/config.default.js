@@ -31,15 +31,9 @@ module.exports = appInfo => {
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   };
 
-  // config.mysql = {
-  //   client: {
-  //     host: 'localhost',
-  //     port: '3306',
-  //     user: '',
-  //     password: '',
-  //     database: '',
-  //   }
-  // }
+  config.session = {
+    maxAge: 3600 * 1000,
+  }
 
   // add your user config here
   const userConfig = {

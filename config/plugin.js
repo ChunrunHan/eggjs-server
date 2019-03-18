@@ -6,13 +6,5 @@ module.exports = {
     enable: true,
     package: 'egg-cors',
   },
-  session: true,
-  redis: {
-    enable: true,
-    package: 'egg-redis',
-  },
-  mysql:{
-    enable: true,
-    package: 'egg-mysql',
-  }
+  session: true
 }
