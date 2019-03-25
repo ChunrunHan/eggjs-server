@@ -43,8 +43,8 @@ module.exports = appInfo => {
   }
   // 七牛秘钥
   config.qiniu = {
-    accessKey: '5Qza7UbD7htSw6eJuCP119LowmMRSG8uRG8lbP4e',
-    secretKey: 'cbez_SNxUCeRwNHOPIM5x2n4mgFVB23vfH7TT4fC'
+    accessKey: '',
+    secretKey: ''
   }
   config.mysql = {
     client: {
