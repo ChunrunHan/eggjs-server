@@ -4,4 +4,11 @@ module.exports = {
     formatUser(user) {
       return { user };
     },
+    resMsg(){
+      return {
+        code: 0,
+        data: {},
+        msg: 'success'
+      }
+    }
 };

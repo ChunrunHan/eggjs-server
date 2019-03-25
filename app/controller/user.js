@@ -1,11 +1,6 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-const userDB = [
-  { username: 'admin', password: 'admin', uuid: 'admin-uuid', name: '管理员' },
-  { username: 'editor', password: 'editor', uuid: 'editor-uuid', name: '编辑' },
-  { username: 'user1', password: 'user1', uuid: 'user1-uuid', name: '用户1' }
-]
 
 class UserController extends Controller {
 
@@ -37,29 +32,20 @@ class UserController extends Controller {
       return
     }
     // 验证码正确则继续登录操作
-    // const userData = await ctx.service.user.login({ username, password })
-    // if (!userData) {
-    //   resMsg.code = 2
-    //   resMsg.msg = '用户名或密码错误'
-    //   ctx.body = resMsg
-    //   return
-    // }
-    // resMsg.token = userData.token
-    // resMsg.data = {
-    //   username: userData.user.userName,
-    //   uid: userData.user._id
-    // }
-    // ctx.body = resMsg
-
-    const user = userDB.find(e => e.username === body.username && e.password === body.password)
-    ctx.body = {
-      code: 0,
-      msg: '登录成功',
-      data: {
-        ...user,
-        // token: '8dfhassad0asdjwoeiruty'
-      }
+    const userData = await ctx.service.user.login({ username, password })
+    if (!userData) {
+      resMsg.code = 2
+      resMsg.msg = '用户名或密码错误'
+      ctx.body = resMsg
+      return
     }
+    resMsg.data = {
+      username: userData.user.username,
+      uid: userData.user.id,
+      token: userData.token
+    }
+    console.log(resMsg)
+    ctx.body = resMsg
   }
 
 

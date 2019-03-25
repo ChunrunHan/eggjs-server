@@ -2,8 +2,6 @@
 
 const Controller = require('egg').Controller;
 const qiniu = require('qiniu');
-var accessKey = '5Qza7UbD7htSw6eJuCP119LowmMRSG8uRG8lbP4e';
-var secretKey = 'cbez_SNxUCeRwNHOPIM5x2n4mgFVB23vfH7TT4fC';
 
 class HomeController extends Controller {
   async index() {
@@ -20,26 +18,25 @@ class HomeController extends Controller {
   }
   // 获取七牛上传的token
   async qiniuToken() {
-    const { ctx } = this;
-    // var accessKey = '5Qza7UbD7htSw6eJuCP119LowmMRSG8uRG8lbP4e';
-    // var secretKey = 'cbez_SNxUCeRwNHOPIM5x2n4mgFVB23vfH7TT4fC';
-    var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-    console.log("mac",mac)
+    const { ctx,app } = this;
+    var mac = new qiniu.auth.digest.Mac(app.config.qiniu.accessKey,app.config.qiniu.secretKey);
     var options = {
       scope: 'blog',
     };
     var putPolicy = new qiniu.rs.PutPolicy(options);
     var uploadToken=putPolicy.uploadToken(mac);
-    console.log("uploadToken",uploadToken)
     ctx.body = {
-      token: uploadToken
+      code: 0,
+      msg: '获取token成功',
+      data:{
+        token: uploadToken
+      }
     }
   }
 
   // 删除七牛云文件
   async qiniuDelete(){
     const { ctx } = this;
-    console.log(ctx.request.body.key)
     let key = ctx.request.body.key;
     let result = await this.deleteOss(key)
     ctx.body = result
@@ -47,8 +44,9 @@ class HomeController extends Controller {
 
   // 七牛云删除操作
   deleteOss(key){
+    let {app} = this;
     var bucket = "blog";
-    var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+    var mac = new qiniu.auth.digest.Mac(app.config.qiniu.accessKey, app.config.qiniu.secretKey);
     var config = new qiniu.conf.Config();
     config.zone = qiniu.zone.Zone_z0;
     var bucketManager = new qiniu.rs.BucketManager(mac, config);
