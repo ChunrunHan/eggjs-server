@@ -60,7 +60,7 @@ class ClientService extends Service {
   async getAllArticleById(page, keyword){
     const { ctx,app } = this
     const TABLE_NAME = 'article';
-    let sql = `select A.id,title,C.name as classname,C.id as classid,lableid,reading,content,A.status,DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime from article as A left join class as C on A.classid = C.id where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''} status = 1 limit ${(page - 1) * 10},10;`;
+    let sql = `select A.id,title,C.name as classname,C.id as classid,lableid,reading,content,A.status,DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime from article as A left join class as C on A.classid = C.id where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''} status = 1 order by createTime desc limit ${(page - 1) * 10},10;`;
     // console.log(sql)
     let row = await app.mysql.query(sql);
     let sql1 = `select * from ${TABLE_NAME} where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''}  status = 1`;

@@ -191,7 +191,7 @@ class AdminService extends Service {
   async getArticleList(userId, page, keyword, status) {
     const { ctx, app } = this;
     const TABLE_NAME = 'article';
-    let sql = `select id,title,content,status,DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime from ${TABLE_NAME} where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''} status = ${status} and userid = ${userId} limit ${(page - 1) * 10},10;`;
+    let sql = `select id,title,content,status,DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime from ${TABLE_NAME} where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''} status = ${status} and userid = ${userId} order by createTime desc limit ${(page - 1) * 10},10;`;
     const row = await app.mysql.query(sql);
     let sql1 = `select * from ${TABLE_NAME} where ${keyword !== '' ? "title like '%" + keyword + "%' and" : ''}  status = ${status} and userid = ${userId}`;
     const rows = await app.mysql.query(sql1);

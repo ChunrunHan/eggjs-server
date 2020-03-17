@@ -25,13 +25,13 @@ module.exports = appInfo => {
     domainWhiteList: ['http://localhost:8080']
   };
 
-  // config.cluster = {
-  //   listen: {
-  //     path: '',
-  //     port: 63342,
-  //     hostname: '0.0.0.0'
-  //   }
-  // }
+   config.cluster = {
+     listen: {
+       path: '',
+       port: 7001,
+       hostname: '127.0.0.1'
+     }
+  }
   // 允许跨域
   config.cors = {
     origin:'*',
@@ -51,7 +51,7 @@ module.exports = appInfo => {
       host: 'localhost',
       port: '3306',
       user: 'root',
-      password: '7773712',
+      password: '7773712Hcr.',
       database: 'mydb',
     }
   }
